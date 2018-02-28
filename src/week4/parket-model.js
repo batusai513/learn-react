@@ -1,25 +1,39 @@
-import model from 'parket';
+import model from "parket";
 
-const Todo = model('todo', {
+const Todo = model("todo", {
   initial: () => ({
     isDone: false,
-    text: '',
+    text: ""
   }),
   actions: state => ({
     setText(text) {
       state.text = text;
     },
     toggleIsDone() {
-      state.isDone = !state.isDone
+      state.isDone = !state.isDone;
     }
   })
 });
 
-const Todos = model('Todos', {
-  initial: () => [],
+export default model("Todos", {
+  initial: () => ({
+    todos: [],
+    selectedFilter: "all"
+  }),
   actions: state => ({
-    addTodo(todo) {
-      state.push(todo);
+    addTodo(text) {
+      state.todos.push(Todo({ text }));
+    },
+    removeTodo(todo) {
+      return state.todos.splice(state.todos.indexOf(todo) >>> 0, 1);
+    },
+    toggleTodo(idx) {
+      state.todos[idx].toggleIsDone();
+    }
+  }),
+  views: state => ({
+    todosCount() {
+      return state.todos.length;
     }
   })
-})
+});

@@ -1,30 +1,34 @@
 import React from "react";
+import { observe } from 'parket/react';
 import PropTypes from "prop-types";
 
-export default function Todo(
+function Todo(
   {
     text,
     isDone,
     toggleTodoDone,
-    deleteTodo
+    deleteTodo,
+    todo
   }
 ) {
   return (
     <div>
       <div className="view">
         <input
-          checked={isDone}
-          onChange={toggleTodoDone}
+          checked={todo.isDone}
+          onChange={todo.toggleIsDone}
           className="toggle"
           type="checkbox"
         />
-        <label>{text}</label>
-        <button onClick={deleteTodo} className="destroy" />
+        <label>{todo.text}</label>
+        <button onClick={todo.deleteTodo} className="destroy" />
       </div>
       <input className="edit" value="Create a TodoMVC template" />
     </div>
   );
 }
+
+export default observe(Todo);
 
 Todo.displayName = "Todo";
 

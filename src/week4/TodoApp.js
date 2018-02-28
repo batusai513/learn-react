@@ -28,8 +28,8 @@ export default class TodoApp extends Component {
     this.changeFilter = this.changeFilter.bind(this);
   }
 
-  addTodo(todo) {
-    this.setState(state => ({ todos: state.todos.concat([todo]) }));
+  addTodo(text) {
+    this.setState(state => ({ todos: state.todos.concat([{ text, isDone: false }]) }));
   }
 
   toggleTodoDone(idx) {
@@ -64,7 +64,7 @@ export default class TodoApp extends Component {
         <TodoHeader onAddTodo={this.addTodo} />
         <section className="main">
           <input className="toggle-all" type="checkbox" />
-          <label for="toggle-all">Mark all as complete</label>
+          <label htmlFor="toggle-all">Mark all as complete</label>
           <TodoList
             deleteTodo={this.deleteTodo}
             toggleTodoDone={this.toggleTodoDone}
